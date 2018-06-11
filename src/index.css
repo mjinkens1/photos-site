@@ -1,0 +1,483 @@
+html,
+body {
+  background: linear-gradient(to bottom, #2c2e33 0%, #202126 92%, #12bc56 100%);
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+.tooltip-text {
+  font-family: 'Roboto', serif;
+  color: #FCFDFF;
+  font-size: 0.55em;
+  display: none;
+  position: absolute;
+  z-index: 1;
+  top: 3em;
+
+  background: transparent;
+  text-align: center;
+}
+
+.header {
+  font-family: 'Roboto', serif;
+  font-size: 1.25em;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 10vh;
+}
+
+.header-item {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  color: #FCFDFF;
+}
+
+.header-left {
+  position: relative;
+  /* height: 100%; */
+  margin: 0.5em 0 0 1em;
+  float: left;
+  color: #12bc56;
+}
+
+.header-right {
+  position: relative;
+  height: 100%;
+  margin: 0.5em 1em;
+  float: right;
+}
+
+.header > .header-item .tooltip-text {
+  white-space: nowrap;
+  margin: -0.5em 0 0 0;
+  padding: 0;
+  font-size: 0.55em;
+  text-align: center;
+}
+
+.header > .header-item .tooltip-text.end {
+  right: 0;
+}
+
+.header > .header-item:hover .tooltip-text {
+  display: block;
+}
+
+.sidebar {
+  font-family: 'Roboto', serif;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  flex-grow: 1;
+  width: 25vw;
+  margin: 3em 0.5em 1em 1em;
+  background: #FCFDFF;
+  box-shadow: -0.6em 0.5em 2em black;
+  transition: 0.15s ease-out;
+  border-radius: 0.25em;
+}
+
+.sidebar-item-wrapper {
+  /* width: 100%; */
+  margin: 0;
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.sidebar-item-header {
+  width: calc(100% - 0.4em);
+  height: 2.5em;
+  /* background: #2c2e33; */
+  background: #2e2e54;
+  color: #FCFDFF;
+  margin: 0.25em 0.2em 0 0.2em;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.15s ease-out;
+  border-radius: 0.25em 0.25em 0 0;
+}
+
+.sidebar-item-header i {
+  margin: 0 0.75em 0 0;
+}
+
+.sidebar-item-header:hover {
+  background: #12bc56;
+  padding-left: 0.25em;
+  width: calc(100% - 0.65em);
+}
+
+
+.sidebar-sub-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  width: calc(100% - 0.4em);
+  height: 0;
+  background: #2c2e33;
+  background: #36383D;
+  background: #24244A;
+  color: #FCFDFF;
+  margin: 0 0.2em 0 0.2em;
+  transition: all 0.15s ease-out;
+  overflow: hidden;
+  border-top: solid;
+  border-radius: 0 0 0.25em 0.25em;
+}
+
+.sidebar-sub-container hr {
+  width: 90%;
+  margin: 0.5em 1em 0.25em 1em;
+}
+
+.sidebar-sub-container.expand {
+  height: auto;
+}
+
+.sidebar-sub-item {
+  cursor: pointer;
+  width: calc(100% - 1.75em);
+  font-size: 0.8em;
+  /* font-weight: bold; */
+  padding: 0.75em 0.25em 0.5em 1.5em;
+  margin: 0;
+  transition: all 0.15s ease-out;
+}
+
+.sidebar-sub-item:hover {
+  background: #12bc56;
+  padding: 0.75em 0em 0.5em 1.75em;
+}
+
+.current-location {
+  position:relative;
+  padding: 0.5em 0;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.current-location h5 {
+  padding: 0;
+  margin: 0 0 1em 0;
+}
+
+.current-location hr {
+  margin: 1em 1em 0 1em;
+}
+
+.location-name {
+  color: #12bc56;
+}
+
+.sidebar h5 {
+  margin: 0 1em;
+}
+
+.sidebar-translate {
+  margin-left: -25vw;
+  transition: 0.25s ease-out;
+}
+
+.map {
+  position: relative;
+  width: calc(100% - 0.4em);
+  height: 25%;
+  margin: 0.2em 0.2em 0 0.2em;
+  flex-shrink: 0;
+}
+
+.social {
+  position: relative;
+  bottom: 0;
+  margin: 1em 0.5em 0.5em 0.5em;
+  width: calc(100% - 1em);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  font-size: 1.5em;
+  color: #2e2e54;
+}
+
+.social > .social-item:hover .tooltip-text,
+.controls > .controls-item:hover .tooltip-text {
+  display:block;
+}
+
+.photo-viewer {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 3.75;
+  margin: 3em 1em 1em 0.5em;
+  background: transparent;
+  box-shadow: -0.6em 0.5em 2em black;
+  border-radius: 0.25em 0.25em 0 0;
+}
+
+.photo-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-grow: 20;
+  overflow: hidden;
+}
+
+.photo-viewer img {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  flex-grow: 1;
+}
+
+.previous-photo {
+  margin-left: -100%;
+  transition: all 0.15s ease-out;
+}
+
+.next-photo {
+  margin-right: -100%;
+  transition: all 0.15s ease-out;
+}
+
+.photo-footer {
+  display: flex;
+  flex-grow: 0;
+  width: 100%;
+  min-height: 15%;
+  padding: 0;
+  margin: 0;
+  background: #FCFDFF;
+  border-radius: 0 0 0.25em 0.25em;
+}
+
+.photo-caption {
+  font-family: 'Roboto', serif;
+  height: 100%;
+  min-width: 50%;
+  flex-grow: 4;
+  padding: 1em;
+  margin: 0;
+  font-size: 1.25vmax;
+}
+
+.photo-viewer-controls {
+  font-family: 'Roboto', serif;
+  position: relative;
+  display: inline-flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  /* color: #2c2e33; */
+  color: #2e2e54;
+  min-width: 20%;
+  flex-grow: 0;
+  top: 0;
+  right: 0;
+  margin: 0.75em 0.25em 0 0.25em;
+  font-size: 1.5vmax;
+}
+
+.photo-viewer-controls > .photo-controls-item .tooltip-text {
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  top: 2.5em;
+  font-size: 0.55em;
+  font-weight: bold;
+  text-align: left;
+  /* color: #2c2e33; */
+  color: #2e2e54;
+}
+
+.photo-viewer-controls > .photo-controls-item .tooltip-text.end {
+  right: 0;
+  margin-right: 0.5em;
+}
+
+.photo-viewer-controls .photo-controls-item a,
+.photo-viewer-controls .photo-controls-item .tooltip-text {
+  color: #2c2e33;
+  color: #2e2e54;
+}
+
+.photo-viewer-controls .photo-controls-item:hover .tooltip-text {
+  display: block;
+}
+
+.photo-status {
+  font-family: 'Roboto', serif;
+  position: absolute;
+  display: inline-flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  white-space: nowrap;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  font-size: 0.55em;
+  font-weight: bold;
+  margin: 0 0.25em 0.25em 0.25em;
+}
+
+.photo-slider {
+  flex-basis: 100%;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 0.55em;
+  background: #d3d3d3;
+  outline: none;
+  margin: 0;
+}
+
+.photo-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0.75em;
+    height: 0.75em;
+    /* background: #2c2e33; */
+    background: #2e2e54;
+    cursor: pointer;
+}
+
+.photo-slider::-moz-range-thumb {
+  width: 0.75em;
+  height: 0.75em;
+  background: #2c2e33;
+  cursor: pointer;
+}
+
+.photo-viewer-fullscreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: linear-gradient(to bottom, #2c2e33, #202126);
+  overflow: hidden;
+}
+
+.photo-footer-fullscreen > .photo-viewer-controls,
+ .photo-footer-fullscreen > hr{
+  display: none;
+}
+
+.photo-caption-fullscreen {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  max-height: 10%;
+  bottom: 1em;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 1.25vmax;
+  transition: all 0.15s ease-out;
+}
+
+.photo-caption-fullscreen > p {
+  position: relative;
+  padding: 0.5em;
+  background: rgba(255,255,255,0.7);
+  max-width: 75%;
+}
+
+.translate-caption {
+  transition: all 0.15s ease-out;
+  margin: 0 0 calc(-10% - 1em) 0;
+}
+
+.controls-fullscreen-container {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 10%;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.5em;
+  color: #FCFDFF;
+  font-size: 1.5vmax;
+}
+
+.controls-fullscreen > .tooltip-text,
+.toggle-caption > .tooltip-text {
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  top: -1.5em;
+  font-size: 0.55em;
+  font-weight: bold;
+  text-align: left;
+}
+
+.controls-fullscreen > .tooltip-text.end {
+  right: 0.5em;
+}
+
+.controls-fullscreen:hover .tooltip-text,
+.toggle-caption:hover > .tooltip-text {
+  display: block;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.none {
+  display: none;
+}
+
+.app {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
