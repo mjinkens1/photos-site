@@ -81,7 +81,7 @@ function fireEventOnInterval(component, eventType, targetId) {
 function getLocationData() {
   return new Promise((resolve, reject) => {
     request.post({
-      url: 'http://localhost:4000/data',
+      url: 'http://mjinkens.com/data',
       form: {
       }
     }, function(error, res, body){
@@ -89,7 +89,7 @@ function getLocationData() {
         reject(error);
 
       if(!res) reject('something went wrong with the request');
-      
+
       if(body)
         body = JSON.parse(body);
         var i;
@@ -107,7 +107,7 @@ function loadPhotos(location, subLocation) {
   var form = subLocation === 'ALL' ? {'location.location': location.toLowerCase()} : {'location.location': location.toLowerCase(), 'location.subLocation': subLocation.toLowerCase()};
   return new Promise((resolve, reject) => {
     request.post({
-      url: 'http://localhost:4000/data',
+      url: 'http://mjinkens.com/data',
       form: form
     }, function(error, res, body){
       if(error)
