@@ -303,7 +303,6 @@ i:hover {
   display: inline-flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  /* color: #2c2e33; */
   color: #2e2e54;
   min-width: 20%;
   flex-grow: 0;
@@ -321,7 +320,6 @@ i:hover {
   font-size: 0.55em;
   font-weight: bold;
   text-align: left;
-  /* color: #2c2e33; */
   color: #2e2e54;
 }
 
@@ -370,7 +368,6 @@ i:hover {
     appearance: none;
     width: 0.75em;
     height: 0.75em;
-    /* background: #2c2e33; */
     background: #2e2e54;
     cursor: pointer;
 }

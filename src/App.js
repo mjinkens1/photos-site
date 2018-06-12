@@ -1,5 +1,4 @@
 import React from 'react';
-const locations = require('./photo-db-object.js');
 const request = require('request');
 
 // Facebook SDK ========================================================================================================================================
@@ -82,13 +81,15 @@ function fireEventOnInterval(component, eventType, targetId) {
 function getLocationData() {
   return new Promise((resolve, reject) => {
     request.post({
-      url:'http://localhost:4000/data',
+      url: 'http://localhost:4000/data',
       form: {
       }
-    }, function(error, httpResponse, body){
+    }, function(error, res, body){
       if(error)
         reject(error);
 
+      if(!res) reject('something went wrong with the request');
+      
       if(body)
         body = JSON.parse(body);
         var i;
@@ -97,7 +98,7 @@ function getLocationData() {
           locationData.locations.push(body[i].location.location);
           locationData.subLocations.push(body[i].location.subLocation);
         };
-        resolve(locationData);
+      resolve(locationData);
     });
   });
 };
@@ -106,11 +107,13 @@ function loadPhotos(location, subLocation) {
   var form = subLocation === 'ALL' ? {'location.location': location.toLowerCase()} : {'location.location': location.toLowerCase(), 'location.subLocation': subLocation.toLowerCase()};
   return new Promise((resolve, reject) => {
     request.post({
-      url:'http://localhost:4000/data',
+      url: 'http://localhost:4000/data',
       form: form
-    }, function(error, httpResponse, body){
+    }, function(error, res, body){
       if(error)
         reject(error);
+
+      if(!res) reject('something went wrong with the request');
 
       if(body)
         body = JSON.parse(body);
@@ -119,7 +122,7 @@ function loadPhotos(location, subLocation) {
         for(i = 0; i < body.length; ++i) {
           photosArray.push(body[i]);
         };
-        resolve(photosArray);
+      resolve(photosArray);
     });
   });
 };
@@ -224,6 +227,8 @@ class Sidebar extends React.Component {
     getLocationData().then((data) => {
       var sidebarItems = getSidebarItems(this, data.locations);
       this.setState({sidebarItems: sidebarItems});
+    }).catch((error) => {
+      console.warn(error);
     });
   };
 
@@ -299,6 +304,8 @@ class SidebarSubContainer extends React.Component {
       };
       var sidebarSubItems = getSidebarSubItems(this, subLocations);
       this.setState({sidebarSubItems: sidebarSubItems});
+    }).catch((error) => {
+      console.warn(error);
     });
   };
 
@@ -511,7 +518,6 @@ class App extends React.Component {
         unshuffledPhotos: null,
         photosArray: null,
         currentPhoto: 'https://s3.amazonaws.com/mjinkens/choose-location.PNG',
-        locations: locations,
         currentLocation: 'CHOOSE LOCATION',
         photoLat: null,
         photoLong: null,
@@ -624,7 +630,6 @@ class App extends React.Component {
         loadPhotos(location, subLocation).then((photosArray) => {
             var unshuffledPhotos = photosArray;
             if(this.state.shuffleStatus) photosArray = shuffleArray(photosArray);
-            console.log(unshuffledPhotos, photosArray);
             return Promise.all([
               this.setState({unshuffledPhotos: unshuffledPhotos}),
               this.setState({photosArray: photosArray}),
@@ -685,7 +690,6 @@ class App extends React.Component {
         />
         <Sidebar
           fullscreen={this.state.fullscreen}
-          locations={this.state.locations}
           currentLocation={this.state.currentLocation}
           sidebarTranslate={this.state.sidebarTranslate}
           handleClick={this.handleClick}
