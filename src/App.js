@@ -609,8 +609,11 @@ class App extends React.Component {
         var shuffleStatus = this.state.shuffleStatus ? false : true;
           this.setState({shuffleStatus: shuffleStatus});
           if(this.state.photosArray === null) return;
-          var shuffledPhotos = shuffleArray(this.state.photosArray);
-          this.setState({photosArray: shuffledPhotos});
+          var photos = [...this.state.photosArray]
+          var shuffledPhotos = shuffleArray(photos);
+          var photosArray = shuffleStatus ? shuffledPhotos : this.state.unshuffledPhotos;
+
+          this.setState({photosArray: photosArray});
         break;
 
       case hasClass(event.target, 'fa-expand') || hasClass(event.target, 'fa-compress'):
@@ -628,11 +631,13 @@ class App extends React.Component {
         var subLocation = event.target.attributes['data-sublocation'].value;
 
         loadPhotos(location, subLocation).then((photosArray) => {
-            var unshuffledPhotos = photosArray;
-            if(this.state.shuffleStatus) photosArray = shuffleArray(photosArray);
+            var unshuffledPhotos = [...photosArray];
+            var shuffledPhotos = shuffleArray(photosArray);
+            var photos = this.state.shuffleStatus ? shuffledPhotos : unshuffledPhotos;
+
             return Promise.all([
               this.setState({unshuffledPhotos: unshuffledPhotos}),
-              this.setState({photosArray: photosArray}),
+              this.setState({photosArray: photos}),
               this.setState({photoIndex: 0})
             ]);
           }).then(() => {
@@ -671,7 +676,6 @@ class App extends React.Component {
         break;
 
       case hasClass(event.target, 'fa-link'):
-        // copy site url to clipboard
         urlToClipboard();
         break;
 
@@ -704,7 +708,6 @@ class App extends React.Component {
           shuffleStatus={this.state.shuffleStatus}
           handleChange={this.handleChange}
           handleClick={this.handleClick}
-          getExif={this.getExif}
         />
       </div>
     );

@@ -425,7 +425,8 @@ i:hover {
   position: absolute;
   display: flex;
   justify-content: space-between;
-  width: 10%;
+  width: 12%;
+  min-width: 110px;
   bottom: 0;
   right: 0;
   margin: 0;
